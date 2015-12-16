@@ -15,11 +15,13 @@ package org.camunda.bpm.example;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
-import org.camunda.bpm.dmn.engine.DmnDecision;
-import org.camunda.bpm.dmn.engine.DmnDecisionTableResult;
-import org.camunda.bpm.dmn.engine.DmnEngine;
-import org.camunda.bpm.dmn.engine.DmnEngineConfiguration;
+import org.camunda.bpm.dmn.engine.*;
+import org.camunda.bpm.dmn.engine.delegate.DmnDecisionTableEvaluationEvent;
+import org.camunda.bpm.dmn.engine.delegate.DmnEvaluatedDecisionRule;
+import org.camunda.bpm.dmn.engine.delegate.DmnEvaluatedOutput;
 import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.engine.variable.Variables;
 
@@ -51,8 +53,13 @@ public class DishDecider {
       .putValue("season", season)
       .putValue("guestCount", guestCount);
 
+    // create evaluation listner to record matched rules
+    DishDecisionTableEvaluationListener evaluationListener = new DishDecisionTableEvaluationListener();
+
     // create a new default DMN engine
-    DmnEngine dmnEngine = DmnEngineConfiguration.createDefaultDmnEngineConfiguration().buildEngine();
+    DmnEngineConfiguration engineConfiguration = DmnEngineConfiguration.createDefaultDmnEngineConfiguration();
+    engineConfiguration.getCustomPostDecisionTableEvaluationListeners().add(evaluationListener);
+    DmnEngine dmnEngine = engineConfiguration.buildEngine();
 
     // parse decision from resource input stream
     InputStream inputStream = DishDecider.class.getResourceAsStream("dish-decision.dmn11.xml");
@@ -66,6 +73,16 @@ public class DishDecider {
       // print result
       String desiredDish = result.getSingleResult().getSingleEntry();
       System.out.println("Dish Decision:\n\tI would recommend to serve: " + desiredDish);
+
+      // print event
+      DmnDecisionTableEvaluationEvent evaluationEvent = evaluationListener.getLastEvent();
+      System.out.println("The following Rules matched:");
+      for (DmnEvaluatedDecisionRule matchedRule : evaluationEvent.getMatchingRules()) {
+        System.out.println("\t" + matchedRule.getId() + ":");
+        for (DmnEvaluatedOutput output : matchedRule.getOutputEntries().values()) {
+          System.out.println("\t\t" + output);
+        }
+      }
 
     }
     finally {
