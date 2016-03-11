@@ -49,11 +49,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>1.4.0</version>
         <configuration>
-          <mainClass>org.camunda.bpm.example.DishDecider</mainClass>
-          <arguments>
-            <argument>Winter</argument>
-            <argument>4</argument>
-          </arguments>
+          <mainClass>org.camunda.bpm.example.MatchRuleAnnotationExample</mainClass>
         </configuration>
       </plugin>
       <plugin>
@@ -85,7 +81,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>org.camunda.bpm.example.DishDecider</mainClass>
+              <mainClass>org.camunda.bpm.example.MatchRuleAnnotationExample</mainClass>
             </manifest>
           </archive>
           <finalName>DishDecider</finalName>

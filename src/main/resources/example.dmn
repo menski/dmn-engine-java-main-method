@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn11.xsd" id="definitions" name="definitions" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="decision" name="decison">
+    <decisionTable id="decisionTable" hitPolicy="RULE ORDER">
+      <input id="input1" label="Input">
+        <inputExpression id="inputExpression1" typeRef="integer">        <text>input</text>
+</inputExpression>
+      </input>
+      <output id="output1" label="Output" name="output" typeRef="string" />
+      <rule id="row-273949121-1">
+        <description>Rule 1</description>
+        <inputEntry id="UnaryTests_1wbs716">        <text><![CDATA[>=1]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_1mivfg2">        <text><![CDATA["first"]]></text>
+</outputEntry>
+      </rule>
+      <rule id="row-273949121-2">
+        <description>Rule 2</description>
+        <inputEntry id="UnaryTests_1glbypt">        <text><![CDATA[>=2]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_0z50nrs">        <text><![CDATA["second"]]></text>
+</outputEntry>
+      </rule>
+      <rule id="row-273949121-3">
+        <description>Rule 3</description>
+        <inputEntry id="UnaryTests_1byngku">        <text><![CDATA[>=3]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_10ky27n">        <text><![CDATA["third"]]></text>
+</outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

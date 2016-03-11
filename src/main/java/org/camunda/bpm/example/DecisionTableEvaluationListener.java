@@ -16,7 +16,7 @@ package org.camunda.bpm.example;
 import org.camunda.bpm.dmn.engine.delegate.DmnDecisionTableEvaluationEvent;
 import org.camunda.bpm.dmn.engine.delegate.DmnDecisionTableEvaluationListener;
 
-public class DishDecisionTableEvaluationListener implements DmnDecisionTableEvaluationListener {
+public class DecisionTableEvaluationListener implements DmnDecisionTableEvaluationListener {
 
   protected DmnDecisionTableEvaluationEvent lastEvent;
 
